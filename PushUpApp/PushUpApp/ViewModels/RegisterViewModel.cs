@@ -7,15 +7,22 @@
         /// User name that will be remember throughout the application 
         /// </summary>
         public string UserName { get; set; }
+        /// <summary>
+        /// User's maximum number of repetitions  
+        /// </summary>
+        public string NumberOfRepetitions { get; set; }
         #endregion
         #region Commands
-        public RelayCommand RegisterCommand { get; set; } 
+        /// <summary>
+        /// Changes the page to <see cref="WorkoutPage"/>
+        /// </summary>
+        public RelayCommand ContinueCommand { get; set; } 
         #endregion
         #region Default constructor
         public RegisterViewModel()
         {
             // Creates commands 
-            RegisterCommand = new RelayCommand(() => RegisterUser());
+            ContinueCommand = new RelayCommand(() => RegisterUser());
         }
         #endregion
         #region Private Methods
@@ -24,7 +31,12 @@
         /// </summary>
         private void RegisterUser()
         {
+            // Assigns the values 
             Settings.UserName = UserName;
+            Settings.NumberOfRepetitions = NumberOfRepetitions;
+
+            // Changes current page
+            App.Current.MainPage.Navigation.PushAsync(new HomePage());
         }
         #endregion
     }

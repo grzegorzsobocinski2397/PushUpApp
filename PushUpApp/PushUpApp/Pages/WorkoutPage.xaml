@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PushUpApp.WorkoutPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Grid HorizontalOptions="Center" VerticalOptions="Center">
+        <Grid.RowDefinitions>
+            <!--  Circle button  -->
+            <RowDefinition Height="Auto" />
+            <!--  Numbers of pushups to perform  -->
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  Start workout button  -->
+        <Button
+            Grid.Row="0"
+            BackgroundColor="Orange"
+            Command="{Binding StartCommand}"
+            CornerRadius="100"
+            FontSize="30"
+            HeightRequest="200"
+            Text="Start workout"
+            TextColor="White"
+            WidthRequest="200" />
+
+        <!--  Number of pushups  -->
+        <Grid Grid.Row="1" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--  First set  -->
+            <Frame
+                Grid.Column="0"
+                BackgroundColor="CornflowerBlue"
+                BorderColor="Red">
+                <Label Text="{Binding Workout.FirstSet}" />
+            </Frame>
+            <!--  Second set  -->
+            <Frame
+                Grid.Column="1"
+                BackgroundColor="CornflowerBlue"
+                BorderColor="Red">
+                <Label Text="{Binding Workout.SecondSet}" />
+            </Frame>
+            <!--  Third set  -->
+            <Frame
+                Grid.Column="2"
+                BackgroundColor="CornflowerBlue"
+                BorderColor="Red">
+                <Label Text="{Binding Workout.ThirdSet}" />
+            </Frame>
+            <!--  Fourth set  -->
+            <Frame
+                Grid.Column="3"
+                BackgroundColor="CornflowerBlue"
+                BorderColor="Red">
+                <Label Text="{Binding Workout.FourthSet}" />
+            </Frame>
+
+        </Grid>
+
+    </Grid>
+</ContentPage>

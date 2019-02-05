@@ -32,12 +32,11 @@
 
         </Style>
         <Style TargetType="{x:Type Label}">
-            <Setter Property="FontAttributes" Value="Bold" />
-            <Setter Property="FontSize" Value="40" />
+            <Setter Property="FontSize" Value="30" />
             <Setter Property="HorizontalTextAlignment" Value="Center" />
             <Setter Property="VerticalTextAlignment" Value="Center" />
-            <Setter Property="TextColor" Value="{DynamicResource Orange}" />
+            <Setter Property="TextColor" Value="White" />
         </Style>
-        
+
     </Application.Resources>
 </Application>

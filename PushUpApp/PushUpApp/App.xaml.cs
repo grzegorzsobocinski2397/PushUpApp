@@ -13,9 +13,9 @@ namespace PushUpApp
 
             // Checks if this is first time opening this application
             if(Settings.UserName == string.Empty)
-                MainPage = new RegisterPage();
+                MainPage = new NavigationPage(new RegisterPage());
             else
-                MainPage = new HomePage();
+                MainPage = new NavigationPage(new HomePage());
         }
 
         protected override void OnStart()
