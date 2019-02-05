@@ -15,6 +15,8 @@ namespace PushUpApp
 		public RegisterPage ()
 		{
 			InitializeComponent ();
+
+            BindingContext = new RegisterViewModel();
 		}
 	}
 }

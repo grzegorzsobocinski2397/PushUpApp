@@ -12,23 +12,21 @@
             Margin="0,100,0,0"
             HorizontalOptions="Center"
             VerticalOptions="Center">
-
-            <!--  Hi text  -->
-            <Label Text="Hi!" />
-            <!--  Text informing the user what to do  -->
-            <Label Margin="0,0,0,100" Text="This is your first time logging in, so please tell us your name!" />
+            
+            <!--  Image logo  -->
+            <Image Source="phone_logo.png" />
 
             <!--  Placeholder for the name  -->
             <Entry
-                Margin="30,0,30,40"
+                Margin="20,50,20,40"
                 Placeholder="Insert your name"
                 Text="{Binding UserName}" />
 
-            <!--  Register button  -->
+            <!--  Continue button  -->
             <Button
-                Margin="30,0,30,0"
+                Margin="20,0,20,0"
                 Command="{Binding RegisterCommand}"
-                Text="Register" />
+                Text="Continue" />
 
         </StackLayout>
     </Frame>

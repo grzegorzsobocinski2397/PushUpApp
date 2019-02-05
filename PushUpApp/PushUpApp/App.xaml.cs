@@ -15,7 +15,7 @@ namespace PushUpApp
             if(Settings.UserName == string.Empty)
                 MainPage = new RegisterPage();
             else
-                MainPage = new MainPage();
+                MainPage = new HomePage();
         }
 
         protected override void OnStart()
