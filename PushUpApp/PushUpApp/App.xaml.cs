@@ -11,7 +11,11 @@ namespace PushUpApp
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            // Checks if this is first time opening this application
+            if(Settings.UserName == string.Empty)
+                MainPage = new RegisterPage();
+            else
+                MainPage = new MainPage();
         }
 
         protected override void OnStart()

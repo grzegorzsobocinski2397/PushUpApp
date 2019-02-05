@@ -1,8 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PushUpApp.App">
+<Application
+    x:Class="PushUpApp.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Colors.xaml" />
+                <ResourceDictionary Source="Styles/Texts.xaml" />
+                <ResourceDictionary Source="/Styles/Buttons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
 
+
+
+        <!--  Login button style  -->
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="CornerRadius" Value="9" />
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+
+        <Color x:Key="Orange">#edbc64</Color>
+
+        <!--  Entry style  -->
+        <Style TargetType="{x:Type Entry}">
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+            <Setter Property="PlaceholderColor" Value="White" />
+            <Setter Property="TextColor" Value="White" />
+
+        </Style>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="FontSize" Value="40" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+            <Setter Property="VerticalTextAlignment" Value="Center" />
+            <Setter Property="TextColor" Value="{DynamicResource Orange}" />
+        </Style>
+        
     </Application.Resources>
 </Application>

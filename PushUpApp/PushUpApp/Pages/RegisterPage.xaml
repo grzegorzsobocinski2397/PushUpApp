@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PushUpApp.RegisterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!--  Background color  -->
+    <Frame BackgroundColor="DodgerBlue">
+
+        <!--  Content  -->
+        <StackLayout
+            Margin="0,100,0,0"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+
+            <!--  Hi text  -->
+            <Label Text="Hi!" />
+            <!--  Text informing the user what to do  -->
+            <Label Margin="0,0,0,100" Text="This is your first time logging in, so please tell us your name!" />
+
+            <!--  Placeholder for the name  -->
+            <Entry
+                Margin="30,0,30,40"
+                Placeholder="Insert your name"
+                Text="{Binding UserName}" />
+
+            <!--  Register button  -->
+            <Button
+                Margin="30,0,30,0"
+                Command="{Binding RegisterCommand}"
+                Text="Register" />
+
+        </StackLayout>
+    </Frame>
+</ContentPage>
