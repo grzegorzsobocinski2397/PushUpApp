@@ -9,6 +9,7 @@ namespace PushUpApp
 		public HomePage ()
 		{
 			InitializeComponent ();
+            BindingContext = new HomeViewModel();
 		}
 	}
 }

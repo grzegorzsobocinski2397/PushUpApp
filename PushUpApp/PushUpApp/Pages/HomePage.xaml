@@ -2,6 +2,12 @@
 <ContentPage
     x:Class="PushUpApp.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:PushUpApp"
+    xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms">
+    <skia:SKCanvasView>
+        <skia:SKCanvasView.Behaviors>
+            <local:PaintSurfaceCommandBehavior Command="{Binding PaintCommand}" />
+        </skia:SKCanvasView.Behaviors>
+    </skia:SKCanvasView>
 </ContentPage>
