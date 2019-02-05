@@ -11,6 +11,7 @@
         public int SecondSet { get; set; }
         public int ThirdSet { get; set; }
         public int FourthSet { get; set; }
+        public int FifthSet { get; set; }
         #endregion
         #endregion
         #region Constructor
@@ -24,6 +25,7 @@
             SecondSet = FirstSet + 2;
             ThirdSet = FirstSet;
             FourthSet = SecondSet + 2;
+            FifthSet = FirstSet - 4;
         }
         #endregion
     }

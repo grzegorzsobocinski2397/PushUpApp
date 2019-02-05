@@ -36,7 +36,7 @@
             Settings.NumberOfRepetitions = NumberOfRepetitions;
 
             // Changes current page
-            App.Current.MainPage.Navigation.PushAsync(new HomePage());
+            App.Current.MainPage.Navigation.PushAsync(new WorkoutPage());
         }
         #endregion
     }
