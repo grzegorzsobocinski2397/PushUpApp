@@ -1,6 +1,6 @@
 ﻿namespace PushUpApp
 {
-    public class RegisterViewModel : BaseViewModel
+    public class SettingsViewModel : BaseViewModel
     {
         #region Public Properties
         /// <summary>
@@ -14,29 +14,28 @@
         #endregion
         #region Commands
         /// <summary>
-        /// Changes the page to <see cref="WorkoutPage"/>
+        /// Save changes 
         /// </summary>
-        public RelayCommand ContinueCommand { get; set; } 
+        public RelayCommand SaveCommand { get; set; }
+
         #endregion
-        #region Default constructor
-        public RegisterViewModel()
+        #region Constructor
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public SettingsViewModel()
         {
-            // Creates commands 
-            ContinueCommand = new RelayCommand(() => RegisterUser());
+            // Create commands
+            SaveCommand = new RelayCommand(() => SaveSettings());
         }
         #endregion
         #region Private Methods
-        /// <summary>
-        /// Registers user name in Settings class so it will be remembered 
-        /// </summary>
-        private void RegisterUser()
+        private void SaveSettings()
         {
             // Assigns the values 
             Settings.UserName = UserName;
             Settings.NumberOfRepetitions = NumberOfRepetitions;
 
-            // Changes current page
-            ChangePage(new WorkoutPage());
         }
         #endregion
     }
