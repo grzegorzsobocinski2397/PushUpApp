@@ -9,7 +9,7 @@ namespace PushUpApp
 		public SettingsPage ()
 		{
 			InitializeComponent ();
-            BindingContext = new SettingsViewModel();
+            BindingContext = new ProfileViewModel();
 		}
 	}
 }

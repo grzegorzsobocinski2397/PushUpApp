@@ -2,43 +2,69 @@
 <ContentPage
     x:Class="PushUpApp.WorkoutPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding SettingsCommand}" Icon="settings.png" />
-    </ContentPage.ToolbarItems>
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    NavigationPage.HasNavigationBar="False">
+
+    <!--  Content  -->
     <Grid BackgroundColor="GhostWhite">
 
         <Grid.RowDefinitions>
+            <!--  Options icon and fake navigation bar  -->
+            <RowDefinition Height="60" />
             <!--  Circle button  -->
             <RowDefinition Height="2*" />
             <!--  Numbers of pushups to perform  -->
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <!--  Pause break window  -->
+        <Frame
+            Grid.RowSpan="3"
+            BackgroundColor="Black"
+            IsVisible="{Binding IsPauseEnabled}"
+            Opacity="0.7">
+            <Label Text="{Binding BreakTimeLeft, StringFormat='{}{0} seconds of break left'}" />
+        </Frame>
+
+        <!--  Fake navigation bar so the PauseEnabled frame takes the whole screen  -->
+        <Grid
+            Grid.Row="0"
+            BackgroundColor="DodgerBlue"
+            HorizontalOptions="Fill"
+            VerticalOptions="Start">
+            <!--  Settings button  -->
+            <Button
+                Margin="0,0,0,0"
+                BackgroundColor="Transparent"
+                Command="{Binding SettingsCommand}"
+                HorizontalOptions="End"
+                Image="settings.png"
+                VerticalOptions="Center" />
+        </Grid>
+
         <!--  Start workout button  -->
         <Button
-            Grid.Row="0"
+            Grid.Row="1"
             Margin="0,70,0,0"
-            BackgroundColor="Orange"
-            BorderColor="WhiteSmoke"
-            BorderWidth="2"
             Command="{Binding StartCommand}"
-            CornerRadius="150"
-            FontSize="30"
-            HeightRequest="300"
-            HorizontalOptions="Center"
-            Text="Start workout"
-            TextColor="White"
-            VerticalOptions="End"
-            WidthRequest="300" />
+            Style="{DynamicResource RoundButton}"
+            Text="{Binding ButtonText}" />
+
+        <!--  Instructions for the user  -->
+        <Label
+            Grid.Row="2"
+            Margin="0,0,0,50"
+            IsVisible="{Binding IsInformationTextVisible}"
+            Text="Click the button when you are done!"
+            TextColor="DodgerBlue" />
 
         <!--  Number of pushups  -->
         <Grid
-            Grid.Row="1"
+            Grid.Row="2"
             Margin="0,0,0,10"
             HorizontalOptions="Center"
             VerticalOptions="End">
-            <!--  Sets  -->
+            <!--    -->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -52,35 +78,35 @@
                 Grid.Column="0"
                 BackgroundColor="CornflowerBlue"
                 BorderColor="DodgerBlue">
-                <Label Text="{Binding Workout.FirstSet}" />
+                <Label Text="{Binding Workout.Sets[0].Repetitions}" />
             </Frame>
             <!--  Second set  -->
             <Frame
                 Grid.Column="1"
                 BackgroundColor="CornflowerBlue"
                 BorderColor="DodgerBlue">
-                <Label Text="{Binding Workout.SecondSet}" />
+                <Label Text="{Binding Workout.Sets[1].Repetitions}" />
             </Frame>
             <!--  Third set  -->
             <Frame
                 Grid.Column="2"
                 BackgroundColor="CornflowerBlue"
                 BorderColor="DodgerBlue">
-                <Label Text="{Binding Workout.ThirdSet}" />
+                <Label Text="{Binding Workout.Sets[2].Repetitions}" />
             </Frame>
             <!--  Fourth set  -->
             <Frame
                 Grid.Column="3"
                 BackgroundColor="CornflowerBlue"
                 BorderColor="DodgerBlue">
-                <Label Text="{Binding Workout.FourthSet}" />
+                <Label Text="{Binding Workout.Sets[3].Repetitions}" />
             </Frame>
             <!--  Fifth set  -->
             <Frame
                 Grid.Column="4"
                 BackgroundColor="CornflowerBlue"
                 BorderColor="DodgerBlue">
-                <Label Text="{Binding Workout.FifthSet}" />
+                <Label Text="{Binding Workout.Sets[4].Repetitions}" />
             </Frame>
         </Grid>
 

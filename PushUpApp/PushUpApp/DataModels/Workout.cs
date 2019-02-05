@@ -1,18 +1,20 @@
-﻿namespace PushUpApp
+﻿using System.Collections.Generic;
+
+namespace PushUpApp
 {
     public class Workout
     {
+        #region Private Members
+        /// <summary>
+        /// User's maximum saved in the application.
+        /// </summary>
+        private int maximumRepetitions = int.Parse(Settings.NumberOfRepetitions);
+        #endregion
         #region Public Properties
         /// <summary>
-        /// Workout sets 
+        /// Lists of sets
         /// </summary>
-        #region Workouts Sets
-        public int FirstSet { get; set; }
-        public int SecondSet { get; set; }
-        public int ThirdSet { get; set; }
-        public int FourthSet { get; set; }
-        public int FifthSet { get; set; }
-        #endregion
+        public List<Set> Sets { get; set; }
         #endregion
         #region Constructor
         /// <summary>
@@ -21,12 +23,31 @@
         public Workout()
         {
             // Creates workout based on the user maximum 
-            FirstSet = int.Parse(Settings.NumberOfRepetitions);
-            SecondSet = FirstSet + 2;
-            ThirdSet = FirstSet;
-            FourthSet = SecondSet + 2;
-            FifthSet = FirstSet - 4;
+            Sets = new List<Set>()
+            {
+                new Set()
+                {
+                    Repetitions = maximumRepetitions.ToString(),
+                },
+                new Set()
+                {
+                    Repetitions = (maximumRepetitions + 2).ToString(),
+                },
+                 new Set()
+                {
+                    Repetitions = (maximumRepetitions - 1).ToString(),
+                },
+                new Set()
+                {
+                    Repetitions = (maximumRepetitions + 4).ToString(),
+                },
+                new Set()
+                {
+                    Repetitions = (maximumRepetitions - 4).ToString(),
+                },
+            };
         }
         #endregion
+
     }
 }

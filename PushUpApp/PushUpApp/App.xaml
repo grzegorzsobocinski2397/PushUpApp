@@ -4,39 +4,43 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles/Colors.xaml" />
-                <ResourceDictionary Source="Styles/Texts.xaml" />
-                <ResourceDictionary Source="/Styles/Buttons.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
 
-
-
-        <!--  Login button style  -->
+        <!--  Login button  -->
         <Style TargetType="{x:Type Button}">
             <Setter Property="CornerRadius" Value="9" />
             <Setter Property="BackgroundColor" Value="White" />
             <Setter Property="TextColor" Value="Black" />
         </Style>
 
-        <Color x:Key="Orange">#edbc64</Color>
-
-        <!--  Entry style  -->
+        <!--  Default entry  -->
         <Style TargetType="{x:Type Entry}">
             <Setter Property="FontSize" Value="25" />
             <Setter Property="HorizontalTextAlignment" Value="Center" />
             <Setter Property="PlaceholderColor" Value="White" />
             <Setter Property="TextColor" Value="White" />
 
+            <!--  Default label  -->
         </Style>
         <Style TargetType="{x:Type Label}">
             <Setter Property="FontSize" Value="30" />
             <Setter Property="HorizontalTextAlignment" Value="Center" />
             <Setter Property="VerticalTextAlignment" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="Center" />
             <Setter Property="TextColor" Value="White" />
         </Style>
 
+        <!--  Round button  -->
+        <Style x:Key="RoundButton" TargetType="{x:Type Button}">
+            <Setter Property="BackgroundColor" Value="Orange" />
+            <Setter Property="BorderColor" Value="WhiteSmoke" />
+            <Setter Property="CornerRadius" Value="150" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="VerticalOptions" Value="End" />
+            <Setter Property="FontSize" Value="60" />
+            <Setter Property="HeightRequest" Value="300" />
+            <Setter Property="WidthRequest" Value="300" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+        </Style>
     </Application.Resources>
 </Application>
