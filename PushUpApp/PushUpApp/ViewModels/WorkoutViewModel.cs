@@ -40,6 +40,7 @@ namespace PushUpApp
         /// Changes page to <see cref="SettingsPage"/>
         /// </summary>
         public RelayCommand SettingsCommand { get; set; }
+        public RelayCommand StopBreakCommand { get; set; }
         #endregion
         #region Constructor
         public WorkoutViewModel()
@@ -47,6 +48,7 @@ namespace PushUpApp
             // Creates commands
             StartCommand = new RelayCommand(() => CheckWorkout());
             SettingsCommand = new RelayCommand(() => ChangePage(new SettingsPage()));
+            StopBreakCommand = new RelayCommand(() => StopBreak());
             // Initialize workout
             Workout = new Workout();
         }
@@ -114,10 +116,17 @@ namespace PushUpApp
             // If the break time is 0, change everything to default and stop timer.
             if(BreakTimeLeft == 0)
             {
-                IsPauseEnabled = false;
-                Timer.Stop();
-                BreakTimeLeft = 150;
+                StopBreak();
             }
+        }
+        /// <summary>
+        /// Stops the break time and continues with the workout
+        /// </summary>
+        private void StopBreak()
+        {
+            IsPauseEnabled = false;
+            Timer.Stop();
+            BreakTimeLeft = 150;
         }
         #endregion
     }

@@ -22,9 +22,26 @@
             Grid.RowSpan="3"
             BackgroundColor="Black"
             IsVisible="{Binding IsPauseEnabled}"
-            Opacity="0.7">
-            <Label Text="{Binding BreakTimeLeft, StringFormat='{}{0} seconds of break left'}" />
+            Opacity="0.8">
+            <Grid>
+                <!--  Break time left information  -->
+                <Label Text="{Binding BreakTimeLeft, StringFormat='{}{0} seconds of break left'}" />
+                <!--  Stop break button  -->
+                <Button
+                    Margin="0,0,0,55"
+                    Padding="40"
+                    BorderColor="DodgerBlue"
+                    BorderWidth="2"
+                    Command="{Binding StopBreakCommand}"
+                    CornerRadius="20"
+                    HorizontalOptions="Center"
+                    Text="Stop break"
+                    TextColor="White"
+                    VerticalOptions="End" />
+            </Grid>
         </Frame>
+
+
 
         <!--  Fake navigation bar so the PauseEnabled frame takes the whole screen  -->
         <Grid
@@ -34,11 +51,11 @@
             VerticalOptions="Start">
             <!--  Settings button  -->
             <Button
-                Margin="0,0,0,0"
+                Margin="0,0,-20,0"
                 BackgroundColor="Transparent"
                 Command="{Binding SettingsCommand}"
-                HorizontalOptions="End"
-                Image="settings.png"
+                HorizontalOptions="EndAndExpand"
+                Image="ic_action_settings.png"
                 VerticalOptions="Center" />
         </Grid>
 
