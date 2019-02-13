@@ -32,6 +32,7 @@
                     Padding="40"
                     BorderColor="DodgerBlue"
                     BorderWidth="2"
+                    BackgroundColor="Transparent"
                     Command="{Binding StopBreakCommand}"
                     CornerRadius="20"
                     HorizontalOptions="Center"
