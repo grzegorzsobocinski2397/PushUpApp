@@ -68,13 +68,13 @@ namespace PushUpApp
             if(Settings.NextWorkoutDate > DateTime.Now)
             {
                 ButtonText = "Skip workout?";
-                UpperLabelText = string.Format("Next workout {0}: ", Settings.NextWorkoutDate.ToShortDateString());
+                UpperLabelText = string.Format("Next workout: {0}", Settings.NextWorkoutDate.ToShortDateString());
             }
             // ...else show this
             else
             {
                 ButtonText = "Start";
-                UpperLabelText = string.Format("Hello, {0}", Settings.UserName);
+                UpperLabelText = string.Format("Hello, {0}.", Settings.UserName);
             }
             // Creates commands
             StartCommand = new RelayCommand(() => CheckWorkout());

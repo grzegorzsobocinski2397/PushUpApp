@@ -27,12 +27,15 @@
             <!--  Pause break window content  -->
             <Grid>
                 <!--  Break time left information  -->
-                <Label Text="{Binding BreakTimeLeft, StringFormat='{}{0} seconds of break left'}" />
+                <Label
+                    Margin="0,100,0,0"
+                    Text="{Binding BreakTimeLeft, StringFormat='{}{0} seconds of break left'}"
+                    VerticalOptions="Start" />
 
                 <!--  Stop break button  -->
                 <Button
-                    Margin="0,0,0,55"
-                    Padding="40"
+                    Margin="0,325,0,0"
+                    Padding="35,17"
                     BackgroundColor="Transparent"
                     BorderColor="DodgerBlue"
                     BorderWidth="2"
@@ -41,7 +44,7 @@
                     HorizontalOptions="Center"
                     Text="Stop break"
                     TextColor="White"
-                    VerticalOptions="End" />
+                    VerticalOptions="Center" />
             </Grid>
         </Frame>
 
