@@ -1,5 +1,8 @@
 ﻿namespace PushUpApp
 {
+    /// <summary>
+    /// One push-up set.
+    /// </summary>
     public class Set : BaseDataModel
     {
         #region Public Properties 
@@ -14,6 +17,10 @@
         public bool IsActive { get; set; }
         #endregion
         #region Public Methods
+        /// <summary>
+        /// Converts the <see cref="Repetitions"/> to string, so code looks less clustered.
+        /// </summary>
+        /// <returns></returns>
         public string SetToString()
         {
             return Repetitions.ToString();

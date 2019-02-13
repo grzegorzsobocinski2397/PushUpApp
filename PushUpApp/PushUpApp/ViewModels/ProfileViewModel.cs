@@ -24,7 +24,7 @@ namespace PushUpApp
         /// </summary>
         public RelayCommand ContinueCommand { get; set; }
         #endregion
-        #region Default constructor
+        #region Constructor
         public ProfileViewModel()
         {
             // Creates commands 
@@ -39,18 +39,17 @@ namespace PushUpApp
         {
             // True if this is user's first launch
             if (Settings.UserName == string.Empty && Settings.NumberOfRepetitions == 0)
-            {
                 // Changes the page if everything went correct 
                 if (AssignNewValues())
                     ChangePage(new WorkoutPage());
-            }
             else
-            {
                 AssignNewValues();
-            }
-
-
         }
+        /// <summary>
+        /// Check if the user typed in correct data and change the setting values stored in the application
+        /// to ones specified by the user.
+        /// </summary>
+        /// <returns></returns>
         private bool AssignNewValues()
         {
             if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(NumberOfRepetitions))

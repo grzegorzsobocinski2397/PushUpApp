@@ -16,6 +16,10 @@ namespace PushUpApp
         /// Service for local push notifications 
         /// </summary>
         private ILocalNotificationService notificationService = DependencyService.Get<ILocalNotificationService>();
+        /// <summary>
+        /// Timer that is used in the <see cref="PauseWorkout"/>
+        /// </summary>
+        private Timer Timer = new Timer(1000);
         #endregion
         #region Public Properties
         /// <summary>
@@ -23,11 +27,7 @@ namespace PushUpApp
         /// </summary>
         public string UpperLabelText { get; set; }
         /// <summary>
-        /// Timer that is used in the <see cref="PauseWorkout"/>
-        /// </summary>
-        public Timer Timer { get; set; }
-        /// <summary>
-        /// Number of repetitions 
+        /// User workout consisting of sets. 
         /// </summary>
         public Workout Workout { get; set; }
         /// <summary>
@@ -56,6 +56,9 @@ namespace PushUpApp
         /// Changes page to <see cref="SettingsPage"/>
         /// </summary>
         public RelayCommand SettingsCommand { get; set; }
+        /// <summary>
+        /// Stop break and continue with the workout.
+        /// </summary>
         public RelayCommand StopBreakCommand { get; set; }
         #endregion
         #region Constructor
@@ -65,7 +68,7 @@ namespace PushUpApp
             if(Settings.NextWorkoutDate > DateTime.Now)
             {
                 ButtonText = "Skip workout?";
-                UpperLabelText = string.Format("Next workout {0}", Settings.NextWorkoutDate.ToShortDateString());
+                UpperLabelText = string.Format("Next workout {0}: ", Settings.NextWorkoutDate.ToShortDateString());
             }
             // ...else show this
             else
@@ -87,14 +90,19 @@ namespace PushUpApp
         /// </summary>
         private async void CheckWorkout()
         {
+            // If this is going to be the first set, then start workout.
             if (ButtonText == "Start")
             {
                 NextSet();
                 IsInformationTextVisible = true;
             }
+            // If it's the last set then finish workout.
             else if (ButtonText == Workout.Sets[4].SetToString())
+            {
                 FinishWorkout();
-            else if(ButtonText == "Skip workout?")
+            }
+            // Ask the user if he really wants to skip the break time.
+            else if(ButtonText == "Skip break?")
             {
                 var question = await App.Current.MainPage.DisplayAlert("Skip break", "Are you sure you want to skip a break?", "I'm sure", "No thanks!");
 
@@ -102,6 +110,7 @@ namespace PushUpApp
                 {
                     ButtonText = "Start";
                     UpperLabelText = string.Format("Hello, {0}", Settings.UserName);
+                    Settings.NextWorkoutDate = default(DateTime);
                 }
                 else
                 {
@@ -120,8 +129,7 @@ namespace PushUpApp
             // Changes texts
             ButtonText = Workout.Sets[numberOfSet].SetToString();
             UpperLabelText = "Nice job!";
-
-
+            
             // Changes bool values of sets to default 
             foreach (var set in Workout.Sets)
             {
@@ -130,7 +138,6 @@ namespace PushUpApp
 
             // Sets current set to active
             Workout.Sets[numberOfSet].IsActive = true;
-
             numberOfSet++;
 
             // Starts a pause
@@ -144,7 +151,6 @@ namespace PushUpApp
             // Shows the black screen 
             IsPauseEnabled = true;
             // Starts timer that lasts 1.5 minutes
-            Timer = new Timer(1000);
             Timer.Enabled = true;
             Timer.Elapsed += ChangeBreakTime;
         }
@@ -177,6 +183,9 @@ namespace PushUpApp
         /// </summary>
         private void FinishWorkout()
         {
+            // Erase the timer 
+            Timer.Dispose();
+
             // Changes the user's maximum number of repetitions 
             Settings.NumberOfRepetitions = Workout.Sets[1].Repetitions;
 
@@ -188,7 +197,7 @@ namespace PushUpApp
             {
                 NotificationId = 100,
                 Title = "Time for a workout!",
-                Description = String.Format("{0}, it's time for your daily push-up workout!", Settings.UserName),
+                Description = string.Format("{0}, it's time for your daily push-up workout!", Settings.UserName),
                 NotifyTime = Settings.NextWorkoutDate,
 
             };

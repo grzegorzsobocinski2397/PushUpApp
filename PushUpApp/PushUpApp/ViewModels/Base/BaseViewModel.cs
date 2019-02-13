@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 using Xamarin.Forms;
 
 namespace PushUpApp
@@ -9,15 +6,6 @@ namespace PushUpApp
     public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        #region Constructor
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public BaseViewModel()
-        {
-
-        }
-        #endregion
 
         #region Public Methods
         /// <summary>

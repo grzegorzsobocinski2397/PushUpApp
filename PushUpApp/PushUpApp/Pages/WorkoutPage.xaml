@@ -18,15 +18,17 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--  Pause break window  -->
+        <!--  Pause break opacity effect  -->
         <Frame
             Grid.RowSpan="3"
             BackgroundColor="Black"
             IsVisible="{Binding IsPauseEnabled}"
             Opacity="0.8">
+            <!--  Pause break window content  -->
             <Grid>
                 <!--  Break time left information  -->
                 <Label Text="{Binding BreakTimeLeft, StringFormat='{}{0} seconds of break left'}" />
+
                 <!--  Stop break button  -->
                 <Button
                     Margin="0,0,0,55"
@@ -51,6 +53,7 @@
             BackgroundColor="DodgerBlue"
             HorizontalOptions="Fill"
             VerticalOptions="Start">
+
             <!--  Upper label text  -->
             <Label
                 Margin="15,0,0,0"
@@ -58,6 +61,7 @@
                 HorizontalOptions="Start"
                 Text="{Binding UpperLabelText}"
                 VerticalOptions="Center" />
+
             <!--  Settings button  -->
             <Button
                 Margin="0,0,-20,0"
@@ -76,8 +80,6 @@
             Style="{DynamicResource RoundButton}"
             Text="{Binding ButtonText}" />
 
-
-
         <!--  Instructions for the user  -->
         <Label
             Grid.Row="2"
@@ -86,7 +88,7 @@
             Text="Click the button when you are done!"
             TextColor="DodgerBlue" />
 
-        <!--  Number of pushups  -->
+        <!--  Sets  -->
         <Grid
             Grid.Row="2"
             Margin="0,0,0,10"

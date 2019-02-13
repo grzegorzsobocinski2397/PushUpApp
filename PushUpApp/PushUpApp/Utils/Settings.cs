@@ -6,9 +6,7 @@ using System;
 namespace PushUpApp
 {
     /// <summary>
-    /// This is the Settings static class that can be used in your Core solution or in any
-    /// of your client applications. All settings are laid out the same exact way with getters
-    /// and setters. 
+    /// Settings class used for storing values even after the application was closed.
     /// </summary>
     public static class Settings
     {

@@ -11,16 +11,14 @@ namespace PushUpApp
             // Creates default color 
             Color color = Color.CornflowerBlue;
 
-            // Based on the value return color
+            // Return color based on the value
             if ((bool)value)
             {
                 color = Color.Orange;
                 return color;
             }
             else
-            {
                 return color;
-            }
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

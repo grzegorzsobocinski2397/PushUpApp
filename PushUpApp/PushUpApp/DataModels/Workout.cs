@@ -2,18 +2,14 @@
 
 namespace PushUpApp
 {
+    /// <summary>
+    /// User workout consisting of five sets.
+    /// </summary>
     public class Workout : BaseDataModel
     {
-        #region Private Members
-        /// <summary>
-        /// User's maximum saved in the application.
-        /// </summary>
-        private int maximumRepetitions = Settings.NumberOfRepetitions;
-        #endregion
         #region Public Properties
-       
         /// <summary>
-        /// Lists of sets
+        /// List of sets
         /// </summary>
         public List<Set> Sets { get; set; }
         #endregion
@@ -28,23 +24,23 @@ namespace PushUpApp
             {
                 new Set()
                 {
-                    Repetitions = maximumRepetitions,
+                    Repetitions = Settings.NumberOfRepetitions,
                 },
                 new Set()
                 {
-                    Repetitions = (maximumRepetitions + 2),
+                    Repetitions = (Settings.NumberOfRepetitions + 2),
                 },
                  new Set()
                 {
-                    Repetitions = (maximumRepetitions - 1),
+                    Repetitions = (Settings.NumberOfRepetitions - 1),
                 },
                 new Set()
                 {
-                    Repetitions = (maximumRepetitions + 4),
+                    Repetitions = (Settings.NumberOfRepetitions + 4),
                 },
                 new Set()
                 {
-                    Repetitions = (maximumRepetitions - 4),
+                    Repetitions = (Settings.NumberOfRepetitions - 4),
                 },
             };
         }
