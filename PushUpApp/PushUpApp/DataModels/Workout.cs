@@ -8,7 +8,7 @@ namespace PushUpApp
         /// <summary>
         /// User's maximum saved in the application.
         /// </summary>
-        private int maximumRepetitions = int.Parse(Settings.NumberOfRepetitions);
+        private int maximumRepetitions = Settings.NumberOfRepetitions;
         #endregion
         #region Public Properties
         /// <summary>
@@ -27,23 +27,23 @@ namespace PushUpApp
             {
                 new Set()
                 {
-                    Repetitions = maximumRepetitions.ToString(),
+                    Repetitions = maximumRepetitions,
                 },
                 new Set()
                 {
-                    Repetitions = (maximumRepetitions + 2).ToString(),
+                    Repetitions = (maximumRepetitions + 2),
                 },
                  new Set()
                 {
-                    Repetitions = (maximumRepetitions - 1).ToString(),
+                    Repetitions = (maximumRepetitions - 1),
                 },
                 new Set()
                 {
-                    Repetitions = (maximumRepetitions + 4).ToString(),
+                    Repetitions = (maximumRepetitions + 4),
                 },
                 new Set()
                 {
-                    Repetitions = (maximumRepetitions - 4).ToString(),
+                    Repetitions = (maximumRepetitions - 4),
                 },
             };
         }

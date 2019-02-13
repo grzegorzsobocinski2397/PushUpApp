@@ -21,10 +21,12 @@ namespace PushUpApp
 
         #region Setting Constants
 
-        private const string UserNameSettingsKey = "user_name";
-        private const string NumberOfRepetitionsSettingsKey = "number_of_repetitions";
-        private static readonly string SettingsDefault = string.Empty;
-
+        private const string UserNameSettingsKey = "UserName";
+        private const string NumberOfRepetitionsSettingsKey = "NumberOfRepetitions";
+        private static readonly string UserNameDefault = string.Empty;
+        private static readonly int NumberOfRepetitionsDefault = default(int);
+            
+        
         #endregion
 
         /// <summary>
@@ -32,16 +34,16 @@ namespace PushUpApp
         /// </summary>
         public static string UserName
         {
-            get => AppSettings.GetValueOrDefault(UserNameSettingsKey, SettingsDefault);
+            get => AppSettings.GetValueOrDefault(UserNameSettingsKey, UserNameDefault);
             set => AppSettings.AddOrUpdateValue(UserNameSettingsKey, value);
             
         }
         /// <summary>
         /// User's maximum number of repetitions
         /// </summary>
-        public static string NumberOfRepetitions
+        public static int NumberOfRepetitions
         {
-            get => AppSettings.GetValueOrDefault(NumberOfRepetitionsSettingsKey, SettingsDefault);
+            get => AppSettings.GetValueOrDefault(NumberOfRepetitionsSettingsKey, NumberOfRepetitionsDefault);
             set => AppSettings.AddOrUpdateValue(NumberOfRepetitionsSettingsKey, value);
         }
 

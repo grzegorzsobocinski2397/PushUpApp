@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("PushUpApp.Droid.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("PushUpApp.Resource", IsApplication=true)]
 
-namespace PushUpApp.Droid
+namespace PushUpApp
 {
 	
 	
@@ -26,7 +26,7 @@ namespace PushUpApp.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::PushUpApp.Droid.Resource.Attribute.actionBarSize;
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::PushUpApp.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Animation

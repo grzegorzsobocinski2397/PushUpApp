@@ -1,10 +1,15 @@
-﻿using System.Timers;
+﻿using Plugin.LocalNotification;
+using System;
+using System.Timers;
+using Xamarin.Forms;
 
 namespace PushUpApp
 {
     public class WorkoutViewModel : BaseViewModel
     {
-        
+        #region Private Members
+        ILocalNotificationService notificationService = DependencyService.Get<ILocalNotificationService>();
+        #endregion
         #region Public Properties
         /// <summary>
         /// Timer that is used in the <see cref="PauseWorkout"/>
@@ -61,34 +66,32 @@ namespace PushUpApp
         {
            if(ButtonText == "Start")
             {
-                ButtonText = Workout.Sets[0].Repetitions;
+                ButtonText = Workout.Sets[0].SetToString();
                 IsInformationTextVisible = true;
             }
-            else if(ButtonText == Workout.Sets[0].Repetitions)
+            else if(ButtonText == Workout.Sets[0].SetToString())
             {
-                ButtonText = Workout.Sets[1].Repetitions;
+                ButtonText = Workout.Sets[1].SetToString();
                 PauseWorkout();
             }
-            else if (ButtonText == Workout.Sets[1].Repetitions)
+            else if (ButtonText == Workout.Sets[1].SetToString())
             {
-                ButtonText = Workout.Sets[2].Repetitions;
+                ButtonText = Workout.Sets[2].SetToString();
                 PauseWorkout();
             }
-            else if (ButtonText == Workout.Sets[2].Repetitions)
+            else if (ButtonText == Workout.Sets[2].SetToString())
             {
-                ButtonText = Workout.Sets[3].Repetitions;
+                ButtonText = Workout.Sets[3].SetToString();
                 PauseWorkout();
             }
-            else if (ButtonText == Workout.Sets[3].Repetitions)
+            else if (ButtonText == Workout.Sets[3].SetToString())
             {
-                ButtonText = Workout.Sets[4].Repetitions;
+                ButtonText = Workout.Sets[4].SetToString();
                 PauseWorkout();
             }
-            else if (ButtonText == Workout.Sets[4].Repetitions)
+            else if (ButtonText == Workout.Sets[4].SetToString())
             {
-                ButtonText = "Finish workout";
-                // Changes the user's maximum number of repetitions 
-                Settings.NumberOfRepetitions = Workout.Sets[1].ToString();
+                FinishWorkout();
             }
 
         }
@@ -127,6 +130,24 @@ namespace PushUpApp
             IsPauseEnabled = false;
             Timer.Stop();
             BreakTimeLeft = 150;
+        }
+        private void FinishWorkout()
+        {
+            ButtonText = "Finish workout";
+
+            // Changes the user's maximum number of repetitions 
+            Settings.NumberOfRepetitions = Workout.Sets[1].Repetitions;
+
+            // Sends new notification 
+            var notification = new LocalNotification
+            {
+                NotificationId = 100,
+                Title = "Time for a workout!",
+                Description = String.Format("{0}, it's time for your daily push-up workout!", Settings.UserName),
+                NotifyTime = DateTime.Now.AddDays(1),
+                 
+            };
+            notificationService.Show(notification);
         }
         #endregion
     }

@@ -1,4 +1,6 @@
-﻿namespace PushUpApp
+﻿using System;
+
+namespace PushUpApp
 {
     /// <summary>
     /// View model used in both <see cref="RegisterPage"/> and <see cref="SettingsPage"/>
@@ -20,7 +22,7 @@
         /// <summary>
         /// Changes the page to <see cref="WorkoutPage"/>
         /// </summary>
-        public RelayCommand ContinueCommand { get; set; } 
+        public RelayCommand ContinueCommand { get; set; }
         #endregion
         #region Default constructor
         public ProfileViewModel()
@@ -36,23 +38,43 @@
         private void SaveUserChanges()
         {
             // True if this is user's first launch
-            if(Settings.UserName == string.Empty)
+            if (Settings.UserName == string.Empty && Settings.NumberOfRepetitions == 0)
             {
-                // Assigns the values 
-                Settings.UserName = UserName;
-                Settings.NumberOfRepetitions = NumberOfRepetitions;
+                // Changes the page if everything went correct 
+                if (AssignNewValues())
+                    ChangePage(new WorkoutPage());
+            }
+            else
+            {
+                AssignNewValues();
+            }
 
-                // Changes current page
-                ChangePage(new WorkoutPage());
+
+        }
+        private bool AssignNewValues()
+        {
+            if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(NumberOfRepetitions))
+            {
+                App.Current.MainPage.DisplayAlert("", "Please, type in correct data.", "Ok");
+                return false;
             }
             else
             {
                 // Assigns the values 
                 Settings.UserName = UserName;
-                Settings.NumberOfRepetitions = NumberOfRepetitions;
+
+                // Checks if the user typed in correct number of repetitions
+                try
+                {
+                    Settings.NumberOfRepetitions = int.Parse(NumberOfRepetitions);
+                    return true;
+                }
+                catch(FormatException e)
+                {
+                    App.Current.MainPage.DisplayAlert("", "Please, type in correct data.", "Ok");
+                    return false;
+                }
             }
-
-
         }
         #endregion
     }
