@@ -8,9 +8,20 @@ namespace PushUpApp
     public class WorkoutViewModel : BaseViewModel
     {
         #region Private Members
-        ILocalNotificationService notificationService = DependencyService.Get<ILocalNotificationService>();
+        /// <summary>
+        /// Current set number 
+        /// </summary>
+        private int numberOfSet = 0;
+        /// <summary>
+        /// Service for local push notifications 
+        /// </summary>
+        private ILocalNotificationService notificationService = DependencyService.Get<ILocalNotificationService>();
         #endregion
         #region Public Properties
+        /// <summary>
+        /// Text above the button 
+        /// </summary>
+        public string UpperLabelText { get; set; }
         /// <summary>
         /// Timer that is used in the <see cref="PauseWorkout"/>
         /// </summary>
@@ -22,7 +33,7 @@ namespace PushUpApp
         /// <summary>
         /// Text inside of the button 
         /// </summary>
-        public string ButtonText { get; set; } = "Start";
+        public string ButtonText { get; set; }
         /// <summary>
         /// True if user started the workout
         /// </summary>
@@ -50,6 +61,18 @@ namespace PushUpApp
         #region Constructor
         public WorkoutViewModel()
         {
+            // If user already completed workout then show this...
+            if(Settings.NextWorkoutDate > DateTime.Now)
+            {
+                ButtonText = "Skip workout?";
+                UpperLabelText = string.Format("Next workout {0}", Settings.NextWorkoutDate.ToShortDateString());
+            }
+            // ...else show this
+            else
+            {
+                ButtonText = "Start";
+                UpperLabelText = string.Format("Hello, {0}", Settings.UserName);
+            }
             // Creates commands
             StartCommand = new RelayCommand(() => CheckWorkout());
             SettingsCommand = new RelayCommand(() => ChangePage(new SettingsPage()));
@@ -62,38 +85,56 @@ namespace PushUpApp
         /// <summary>
         /// Changes the button text based on the previous text 
         /// </summary>
-        private void CheckWorkout()
+        private async void CheckWorkout()
         {
-           if(ButtonText == "Start")
+            if (ButtonText == "Start")
             {
-                ButtonText = Workout.Sets[0].SetToString();
+                NextSet();
                 IsInformationTextVisible = true;
             }
-            else if(ButtonText == Workout.Sets[0].SetToString())
-            {
-                ButtonText = Workout.Sets[1].SetToString();
-                PauseWorkout();
-            }
-            else if (ButtonText == Workout.Sets[1].SetToString())
-            {
-                ButtonText = Workout.Sets[2].SetToString();
-                PauseWorkout();
-            }
-            else if (ButtonText == Workout.Sets[2].SetToString())
-            {
-                ButtonText = Workout.Sets[3].SetToString();
-                PauseWorkout();
-            }
-            else if (ButtonText == Workout.Sets[3].SetToString())
-            {
-                ButtonText = Workout.Sets[4].SetToString();
-                PauseWorkout();
-            }
             else if (ButtonText == Workout.Sets[4].SetToString())
-            {
                 FinishWorkout();
+            else if(ButtonText == "Skip workout?")
+            {
+                var question = await App.Current.MainPage.DisplayAlert("Skip break", "Are you sure you want to skip a break?", "I'm sure", "No thanks!");
+
+                if (question)
+                {
+                    ButtonText = "Start";
+                    UpperLabelText = string.Format("Hello, {0}", Settings.UserName);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+                NextSet();
+
+        }
+        /// <summary>
+        /// Changes the current set
+        /// </summary>
+        private void NextSet()
+        {
+            // Changes texts
+            ButtonText = Workout.Sets[numberOfSet].SetToString();
+            UpperLabelText = "Nice job!";
+
+
+            // Changes bool values of sets to default 
+            foreach (var set in Workout.Sets)
+            {
+                set.IsActive = false;
             }
 
+            // Sets current set to active
+            Workout.Sets[numberOfSet].IsActive = true;
+
+            numberOfSet++;
+
+            // Starts a pause
+            PauseWorkout();
         }
         /// <summary>
         /// Display black screen for the user informing him of the break time 
@@ -117,7 +158,7 @@ namespace PushUpApp
             BreakTimeLeft--;
 
             // If the break time is 0, change everything to default and stop timer.
-            if(BreakTimeLeft == 0)
+            if (BreakTimeLeft == 0)
             {
                 StopBreak();
             }
@@ -131,23 +172,33 @@ namespace PushUpApp
             Timer.Stop();
             BreakTimeLeft = 150;
         }
+        /// <summary>
+        /// Completes the workout
+        /// </summary>
         private void FinishWorkout()
         {
-            ButtonText = "Finish workout";
-
             // Changes the user's maximum number of repetitions 
             Settings.NumberOfRepetitions = Workout.Sets[1].Repetitions;
 
-            // Sends new notification 
+            // Date for next workout 
+            Settings.NextWorkoutDate = DateTime.Now.AddDays(1);
+
+            // Creates new notification 
             var notification = new LocalNotification
             {
                 NotificationId = 100,
                 Title = "Time for a workout!",
                 Description = String.Format("{0}, it's time for your daily push-up workout!", Settings.UserName),
-                NotifyTime = DateTime.Now.AddDays(1),
-                 
+                NotifyTime = Settings.NextWorkoutDate,
+
             };
+            // Sends notification
             notificationService.Show(notification);
+
+            // Changes the text inside of a circle button 
+            ButtonText = "Skip break?";
+            // Changes the text above the button 
+            UpperLabelText = string.Format("Come back tomorrow! ");
         }
         #endregion
     }

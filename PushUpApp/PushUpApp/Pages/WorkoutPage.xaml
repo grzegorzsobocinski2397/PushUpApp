@@ -3,6 +3,7 @@
     x:Class="PushUpApp.WorkoutPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:PushUpApp"
     NavigationPage.HasNavigationBar="False">
 
     <!--  Content  -->
@@ -30,9 +31,9 @@
                 <Button
                     Margin="0,0,0,55"
                     Padding="40"
+                    BackgroundColor="Transparent"
                     BorderColor="DodgerBlue"
                     BorderWidth="2"
-                    BackgroundColor="Transparent"
                     Command="{Binding StopBreakCommand}"
                     CornerRadius="20"
                     HorizontalOptions="Center"
@@ -50,7 +51,13 @@
             BackgroundColor="DodgerBlue"
             HorizontalOptions="Fill"
             VerticalOptions="Start">
-            
+            <!--  Upper label text  -->
+            <Label
+                Margin="15,0,0,0"
+                FontSize="20"
+                HorizontalOptions="Start"
+                Text="{Binding UpperLabelText}"
+                VerticalOptions="Center" />
             <!--  Settings button  -->
             <Button
                 Margin="0,0,-20,0"
@@ -69,8 +76,8 @@
             Style="{DynamicResource RoundButton}"
             Text="{Binding ButtonText}" />
 
-       
-        
+
+
         <!--  Instructions for the user  -->
         <Label
             Grid.Row="2"
@@ -95,38 +102,23 @@
             </Grid.ColumnDefinitions>
 
             <!--  First set  -->
-            <Frame
-                Grid.Column="0"
-                BackgroundColor="CornflowerBlue"
-                BorderColor="DodgerBlue">
+            <Frame Grid.Column="0" BackgroundColor="{Binding Workout.Sets[0].IsActive, Converter={local:BoolToBackgroundColorConverter}}">
                 <Label Text="{Binding Workout.Sets[0].Repetitions}" />
             </Frame>
             <!--  Second set  -->
-            <Frame
-                Grid.Column="1"
-                BackgroundColor="CornflowerBlue"
-                BorderColor="DodgerBlue">
+            <Frame Grid.Column="1" BackgroundColor="{Binding Workout.Sets[1].IsActive, Converter={local:BoolToBackgroundColorConverter}}">
                 <Label Text="{Binding Workout.Sets[1].Repetitions}" />
             </Frame>
             <!--  Third set  -->
-            <Frame
-                Grid.Column="2"
-                BackgroundColor="CornflowerBlue"
-                BorderColor="DodgerBlue">
+            <Frame Grid.Column="2" BackgroundColor="{Binding Workout.Sets[2].IsActive, Converter={local:BoolToBackgroundColorConverter}}">
                 <Label Text="{Binding Workout.Sets[2].Repetitions}" />
             </Frame>
             <!--  Fourth set  -->
-            <Frame
-                Grid.Column="3"
-                BackgroundColor="CornflowerBlue"
-                BorderColor="DodgerBlue">
+            <Frame Grid.Column="3" BackgroundColor="{Binding Workout.Sets[3].IsActive, Converter={local:BoolToBackgroundColorConverter}}">
                 <Label Text="{Binding Workout.Sets[3].Repetitions}" />
             </Frame>
             <!--  Fifth set  -->
-            <Frame
-                Grid.Column="4"
-                BackgroundColor="CornflowerBlue"
-                BorderColor="DodgerBlue">
+            <Frame Grid.Column="4" BackgroundColor="{Binding Workout.Sets[4].IsActive, Converter={local:BoolToBackgroundColorConverter}}">
                 <Label Text="{Binding Workout.Sets[4].Repetitions}" />
             </Frame>
         </Grid>

@@ -2,7 +2,7 @@
 
 namespace PushUpApp
 {
-    public class Workout
+    public class Workout : BaseDataModel
     {
         #region Private Members
         /// <summary>
@@ -11,6 +11,7 @@ namespace PushUpApp
         private int maximumRepetitions = Settings.NumberOfRepetitions;
         #endregion
         #region Public Properties
+       
         /// <summary>
         /// Lists of sets
         /// </summary>

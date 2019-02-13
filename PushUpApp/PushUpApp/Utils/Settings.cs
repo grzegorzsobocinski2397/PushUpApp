@@ -1,6 +1,7 @@
 ﻿// Helpers/Settings.cs
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
+using System;
 
 namespace PushUpApp
 {
@@ -20,12 +21,15 @@ namespace PushUpApp
         }
 
         #region Setting Constants
-
+        // User name
         private const string UserNameSettingsKey = "UserName";
-        private const string NumberOfRepetitionsSettingsKey = "NumberOfRepetitions";
         private static readonly string UserNameDefault = string.Empty;
+        // Number of repetitions
+        private const string NumberOfRepetitionsSettingsKey = "NumberOfRepetitions";
         private static readonly int NumberOfRepetitionsDefault = default(int);
-            
+        // Next workout date
+        private const string NextWorkoutDateSettingsKey = "NextWorkout";
+        private static readonly DateTime NextWorkoutDateDefault = default(DateTime);
         
         #endregion
 
@@ -45,6 +49,14 @@ namespace PushUpApp
         {
             get => AppSettings.GetValueOrDefault(NumberOfRepetitionsSettingsKey, NumberOfRepetitionsDefault);
             set => AppSettings.AddOrUpdateValue(NumberOfRepetitionsSettingsKey, value);
+        }
+        /// <summary>
+        /// Next workout date 
+        /// </summary>
+        public static DateTime NextWorkoutDate
+        {
+            get => AppSettings.GetValueOrDefault(NextWorkoutDateSettingsKey, NextWorkoutDateDefault);
+            set => AppSettings.AddOrUpdateValue(NextWorkoutDateSettingsKey, value);
         }
 
     }
