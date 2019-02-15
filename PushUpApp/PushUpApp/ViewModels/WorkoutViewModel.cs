@@ -209,7 +209,7 @@ namespace PushUpApp
                 NotificationId = 100,
                 Title = "Time for a workout!",
                 Description = string.Format("{0}, it's time for your daily push-up workout!", Settings.UserName),
-                NotifyTime = DateTime.Now.AddSeconds(20),
+                NotifyTime = Settings.NextWorkoutDate,
             };
             // Sends notification
             notificationService.Show(notification);
@@ -219,7 +219,7 @@ namespace PushUpApp
             // Changes the text above the button 
             UpperLabelText = string.Format("Come back tomorrow! ");
             // Changes the information text
-            InformationText = string.Format("You completed {0} push-ups, nice!", Workout.SetsSum);
+            InformationText = string.Format("You've completed {0} push-ups, nice!", Workout.SetsSum);
         }
         /// <summary>
         /// Changes the text labels for a game start.
@@ -229,7 +229,7 @@ namespace PushUpApp
             ButtonText = "Start";
             UpperLabelText = string.Format("Hello, {0}", Settings.UserName);
             IsInformationTextVisible = true;
-            InformationText = "Click the button to begin workout!";
+            InformationText = "Click the button to begin the workout!";
         }
         #endregion
     }

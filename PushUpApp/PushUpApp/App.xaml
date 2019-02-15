@@ -22,7 +22,7 @@
             <!--  Default label  -->
         </Style>
         <Style TargetType="{x:Type Label}">
-            <Setter Property="FontSize" Value="30" />
+            <Setter Property="FontSize" Value="28" />
             <Setter Property="HorizontalTextAlignment" Value="Center" />
             <Setter Property="VerticalTextAlignment" Value="Center" />
             <Setter Property="VerticalOptions" Value="Center" />
