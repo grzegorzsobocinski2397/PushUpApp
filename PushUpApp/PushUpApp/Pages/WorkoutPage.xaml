@@ -88,7 +88,7 @@
             Grid.Row="2"
             Margin="8,0,8,50"
             IsVisible="{Binding IsInformationTextVisible}"
-            Text="Click the button when you are done!"
+            Text="{Binding InformationText}"
             TextColor="DodgerBlue" />
 
         <!--  Sets  -->

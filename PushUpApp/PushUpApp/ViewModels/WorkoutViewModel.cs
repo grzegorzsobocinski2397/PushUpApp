@@ -23,6 +23,10 @@ namespace PushUpApp
         #endregion
         #region Public Properties
         /// <summary>
+        /// User's information text. Informs the user what to click.
+        /// </summary>
+        public string InformationText { get; set; }
+        /// <summary>
         /// Text above the button 
         /// </summary>
         public string UpperLabelText { get; set; }
@@ -65,21 +69,21 @@ namespace PushUpApp
         public WorkoutViewModel()
         {
             // If user already completed workout then show this...
-            if(Settings.NextWorkoutDate > DateTime.Now)
+            if (Settings.NextWorkoutDate > DateTime.Now)
             {
-                ButtonText = "Skip workout?";
+                ButtonText = "Skip break?";
                 UpperLabelText = string.Format("Next workout: {0}", Settings.NextWorkoutDate.ToShortDateString());
             }
             // ...else show this
             else
             {
-                ButtonText = "Start";
-                UpperLabelText = string.Format("Hello, {0}.", Settings.UserName);
+                // Changes the text labels for game start
+                DefaultLabelTexts();
             }
             // Creates commands
             StartCommand = new RelayCommand(() => CheckWorkout());
-            SettingsCommand = new RelayCommand(() => ChangePage(new SettingsPage()));
             StopBreakCommand = new RelayCommand(() => StopBreak());
+            SettingsCommand = new RelayCommand(() => ChangePage(new SettingsPage()));
             // Initialize workout
             Workout = new Workout();
         }
@@ -95,6 +99,7 @@ namespace PushUpApp
             {
                 NextSet();
                 IsInformationTextVisible = true;
+                InformationText = "Click the button when you are done!";
             }
             // If it's the last set then finish workout.
             else if (ButtonText == Workout.Sets[4].SetToString())
@@ -102,15 +107,18 @@ namespace PushUpApp
                 FinishWorkout();
             }
             // Ask the user if he really wants to skip the break time.
-            else if(ButtonText == "Skip break?")
+            else if (ButtonText == "Skip break?")
             {
                 var question = await App.Current.MainPage.DisplayAlert("Skip break", "Are you sure you want to skip a break?", "I'm sure", "No thanks!");
 
                 if (question)
                 {
-                    ButtonText = "Start";
-                    UpperLabelText = string.Format("Hello, {0}", Settings.UserName);
+                    // Changes the text labels for game start
+                    DefaultLabelTexts();
+                    // Resets the next workout date
                     Settings.NextWorkoutDate = default(DateTime);
+                    // Cancels all the scheduled notifiactions 
+                    notificationService.CancelAll();
                 }
                 else
                 {
@@ -129,12 +137,9 @@ namespace PushUpApp
             // Changes texts
             ButtonText = Workout.Sets[numberOfSet].SetToString();
             UpperLabelText = "Nice job!";
-            
+
             // Changes bool values of sets to default 
-            foreach (var set in Workout.Sets)
-            {
-                set.IsActive = false;
-            }
+            Workout.DeselectSets();
 
             // Sets current set to active
             Workout.Sets[numberOfSet].IsActive = true;
@@ -183,8 +188,14 @@ namespace PushUpApp
         /// </summary>
         private void FinishWorkout()
         {
-            // Erase the timer 
-            Timer.Dispose();
+            // Stops the timer 
+            Timer.Stop();
+
+            // Reset the number of set
+            numberOfSet = 0;
+
+            // Deselects sets
+            Workout.DeselectSets();
 
             // Changes the user's maximum number of repetitions 
             Settings.NumberOfRepetitions = Workout.Sets[1].Repetitions;
@@ -198,8 +209,7 @@ namespace PushUpApp
                 NotificationId = 100,
                 Title = "Time for a workout!",
                 Description = string.Format("{0}, it's time for your daily push-up workout!", Settings.UserName),
-                NotifyTime = Settings.NextWorkoutDate,
-
+                NotifyTime = DateTime.Now.AddSeconds(20),
             };
             // Sends notification
             notificationService.Show(notification);
@@ -208,6 +218,18 @@ namespace PushUpApp
             ButtonText = "Skip break?";
             // Changes the text above the button 
             UpperLabelText = string.Format("Come back tomorrow! ");
+            // Changes the information text
+            InformationText = string.Format("You completed {0} push-ups, nice!", Workout.SetsSum);
+        }
+        /// <summary>
+        /// Changes the text labels for a game start.
+        /// </summary>
+        private void DefaultLabelTexts()
+        {
+            ButtonText = "Start";
+            UpperLabelText = string.Format("Hello, {0}", Settings.UserName);
+            IsInformationTextVisible = true;
+            InformationText = "Click the button to begin workout!";
         }
         #endregion
     }

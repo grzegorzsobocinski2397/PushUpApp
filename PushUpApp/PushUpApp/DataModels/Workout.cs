@@ -12,6 +12,10 @@ namespace PushUpApp
         /// List of sets
         /// </summary>
         public List<Set> Sets { get; set; }
+        /// <summary>
+        /// Total number of sets in this workout.
+        /// </summary>
+        public int SetsSum { get; set; }
         #endregion
         #region Constructor
         /// <summary>
@@ -43,6 +47,23 @@ namespace PushUpApp
                     Repetitions = (Settings.NumberOfRepetitions - 4),
                 },
             };
+            // Sums up the sets
+            foreach(var set in Sets)
+            {
+                SetsSum += set.Repetitions;
+            }
+        }
+        #endregion
+        #region Public Methods
+        /// <summary>
+        /// Changes bool values of sets to default 
+        /// </summary>
+        public void DeselectSets()
+        {
+            foreach (var set in Sets)
+            {
+                set.IsActive = false;
+            }
         }
         #endregion
 
