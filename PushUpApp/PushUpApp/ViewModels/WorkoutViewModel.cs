@@ -97,7 +97,8 @@ namespace PushUpApp
             // If this is going to be the first set, then start workout.
             if (ButtonText == "Start")
             {
-                NextSet();
+                // Changes texts
+                ButtonText = Workout.Sets[numberOfSet].SetToString();
                 IsInformationTextVisible = true;
                 InformationText = "Click the button when you are done!";
             }
@@ -156,8 +157,8 @@ namespace PushUpApp
             // Shows the black screen 
             IsPauseEnabled = true;
             // Starts timer that lasts 1.5 minutes
-            Timer.Enabled = true;
-            Timer.Elapsed += ChangeBreakTime;
+            Timer.Enabled = true;            if (numberOfSet == 1)
+                Timer.Elapsed += ChangeBreakTime;
         }
         /// <summary>
         /// Changes the break time by one second
