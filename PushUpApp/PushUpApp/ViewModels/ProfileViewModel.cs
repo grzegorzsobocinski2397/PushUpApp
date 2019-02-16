@@ -22,13 +22,13 @@ namespace PushUpApp
         /// <summary>
         /// Changes the page to <see cref="WorkoutPage"/>
         /// </summary>
-        public RelayCommand ContinueCommand { get; set; }
+        public RelayCommand SaveCommand { get; set; }
         #endregion
         #region Constructor
         public ProfileViewModel()
         {
             // Creates commands 
-            ContinueCommand = new RelayCommand(() => SaveUserChanges());
+            SaveCommand = new RelayCommand(() => SaveUserChanges());
         }
         #endregion
         #region Private Methods
@@ -39,9 +39,10 @@ namespace PushUpApp
         {
             // True if this is user's first launch
             if (Settings.UserName == string.Empty && Settings.NumberOfRepetitions == 0)
+            {
                 // Changes the page if everything went correct 
-                if (AssignNewValues())
-                    ChangePage(new WorkoutPage());
+                AssignNewValues();
+            }
             else
                 AssignNewValues();
         }
@@ -50,29 +51,32 @@ namespace PushUpApp
         /// to ones specified by the user.
         /// </summary>
         /// <returns></returns>
-        private bool AssignNewValues()
+        private void AssignNewValues()
         {
             if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(NumberOfRepetitions))
             {
                 App.Current.MainPage.DisplayAlert("", "Please, type in correct data.", "Ok");
-                return false;
+
             }
             else
             {
                 // Assigns the values 
                 Settings.UserName = UserName;
+                bool IsDataCorrect = true;
 
                 // Checks if the user typed in correct number of repetitions
                 try
                 {
                     Settings.NumberOfRepetitions = int.Parse(NumberOfRepetitions);
-                    return true;
                 }
-                catch(FormatException e)
+                catch (FormatException e)
                 {
                     App.Current.MainPage.DisplayAlert("", "Please, type in correct data.", "Ok");
-                    return false;
+                    IsDataCorrect = false;
                 }
+
+                if (IsDataCorrect)
+                    ChangePage(new WorkoutPage());
             }
         }
         #endregion

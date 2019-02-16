@@ -32,7 +32,7 @@
             <!--  Continue button  -->
             <Button
                 Margin="20,0,20,0"
-                Command="{Binding ContinueCommand}"
+                Command="{Binding SaveCommand}"
                 Text="Continue" />
 
         </StackLayout>
